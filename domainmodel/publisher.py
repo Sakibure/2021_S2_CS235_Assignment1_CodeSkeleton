@@ -2,8 +2,9 @@ class Publisher:
 
     def __init__(self, publisher_name: str):
         self.__name = None
-        # TODO
-        pass
+        if isinstance(publisher_name,str) is False or len(publisher_name.strip()) is 0:
+            self.__name = "N/A"
+        self.__publisher = publisher_name.strip()
 
     @property
     def name(self) -> str:
@@ -11,8 +12,7 @@ class Publisher:
 
     @name.setter
     def name(self, publisher_name):
-        # TODO
-        pass
+        self.__name = publisher_name
 
     def __repr__(self):
         # we use access via the property here
@@ -24,9 +24,7 @@ class Publisher:
         return other.name == self.name
 
     def __lt__(self, other):
-        # TODO
-        pass
+        return self.__name < other.__name
 
     def __hash__(self):
-        # TODO
-        pass
+        return hash(self.__name)

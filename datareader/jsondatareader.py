@@ -1,5 +1,6 @@
 import json
 
+
 class BooksJSONReader:
 
     def __init__(self, books_file_name: str, authors_file_name: str):
