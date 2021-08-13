@@ -26,7 +26,7 @@ class Author:
         return self.__id
 
     def __repr__(self):
-        return f'<Author{self.__name}, author_id = {self.__id}>'
+        return f'<Author {self.__name}, author id = {self.__id}>'
 
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
