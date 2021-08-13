@@ -1,6 +1,3 @@
-import author as author
-
-
 class Author:
     def __init__(self, author_id, author_name):
         self.__name_ls = []
@@ -35,3 +32,34 @@ class Author:
         if not isinstance(other, self.__class__):
             return False
         return other.__id == self.__id
+
+    def __lt__(self, other):
+        return self.__id < other.__id
+
+    def __hash__(self):
+        return hash(self.__id)
+
+    def add_coauthor(self, coauthor):
+        if coauthor not in self.__name_ls:
+            self.__name_ls.append(coauthor)
+            coauthor.__name_ls.append(self)
+
+    def check_if_this_author_coauthored_with(self, name):
+        return name in self.__name_ls
+
+
+if __name__ == '__main__':
+    author1 = Author(3675, "Barack Obama")
+    print(author1)
+    try:
+        author2 = Author(123, "  ")
+        print(author2)
+    except ValueError:
+        print("ValueError was raised!")
+    try:
+        author3 = Author(42, 42)
+        print(author3)
+    except ValueError:
+        print("ValueError was raised!")
+    author4 = Author(23, "J.R.R. Tolkien")
+    print(author4.unique_id, author4.full_name)
