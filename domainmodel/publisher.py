@@ -32,7 +32,8 @@ class Publisher:
         return hash(self.__name)
 
 
-def main():
+if __name__ == '__main__':
+
     publisher1 = Publisher("Avatar Press")
     print(publisher1)
     publisher2 = Publisher("  ")
@@ -43,4 +44,3 @@ def main():
     print(publisher4)
 
 
-main()
