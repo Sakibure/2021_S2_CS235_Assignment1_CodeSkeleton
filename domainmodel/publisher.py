@@ -1,9 +1,11 @@
 class Publisher:
 
     def __init__(self, publisher_name: str):
+        self.__name = ''
         if isinstance(publisher_name, str) is False or len(publisher_name.strip()) == 0:
             self.__name = "N/A"
-        self.__publisher = publisher_name.strip()
+        else:
+            self.__name = publisher_name.strip()
 
     @property
     def name(self) -> str:
@@ -15,6 +17,7 @@ class Publisher:
 
     def __repr__(self):
         # we use access via the property here
+
         return f'<Publisher {self.__name}>'
 
     def __eq__(self, other):
@@ -29,7 +32,7 @@ class Publisher:
         return hash(self.__name)
 
 
-if __name__ == '__main__':
+def main():
     publisher1 = Publisher("Avatar Press")
     print(publisher1)
     publisher2 = Publisher("  ")
@@ -38,3 +41,6 @@ if __name__ == '__main__':
     print(publisher3)
     publisher4 = Publisher(42)
     print(publisher4)
+
+
+main()
