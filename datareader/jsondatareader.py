@@ -39,7 +39,6 @@ if __name__ == '__main__':
     books_filename = 'comic_books_excerpt.json'
     reader = BooksJSONReader(books_filename, authors_filename)
     reader.read_json_files()
-
     print(reader.dataset_of_books[0])
     print(reader.dataset_of_books[10])
     print(reader.dataset_of_books[19])
