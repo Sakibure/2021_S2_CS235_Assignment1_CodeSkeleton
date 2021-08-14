@@ -23,8 +23,9 @@ class Book:
         return self.__publisher
 
     @publisher.setter
-    def publisher(self, pub):
-        self.__publisher = pub
+    def publisher(self, name):
+        if isinstance(name, Publisher):
+            self.__publisher = name
 
     @property
     def authors(self):
