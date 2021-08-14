@@ -1,4 +1,7 @@
 import json
+from domainmodel.author import Author
+from domainmodel.publisher import Publisher
+from domainmodel.book import Book
 
 
 class BooksJSONReader:
