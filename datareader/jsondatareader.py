@@ -1,7 +1,4 @@
 import json
-from domainmodel.author import Author
-from domainmodel.publisher import Publisher
-from domainmodel.book import Book
 
 
 class BooksJSONReader:
@@ -20,7 +17,7 @@ class BooksJSONReader:
             raise ValueError
 
     @property
-    def dataset_of_books(self) -> list:
+    def dataset_of_books(self):
         return self.__dataset_of_books
 
     def read_json_files(self):
