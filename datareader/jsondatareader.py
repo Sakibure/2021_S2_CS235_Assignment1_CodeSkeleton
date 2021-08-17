@@ -6,7 +6,7 @@ class BooksJSONReader:
     def __init__(self, books_file_name: str, authors_file_name: str):
         self.__books_file_name = None
         self.__authors_file_name = None
-        self.__dataset_of_books = None
+        self.__dataset_of_books = []
         if isinstance(books_file_name, str) and len(books_file_name.strip()) >= 0:
             self.__books_file_name = books_file_name
         else:

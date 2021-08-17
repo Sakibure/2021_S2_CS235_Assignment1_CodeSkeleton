@@ -1,6 +1,8 @@
 import pytest
 
 from domainmodel.publisher import Publisher
+from domainmodel.author import Author
+from domainmodel.book import Book
 
 
 class TestPublisher:
@@ -14,3 +16,9 @@ class TestPublisher:
         assert str(publisher3) == "<Publisher DC Comics>"
         publisher4 = Publisher(42)
         assert str(publisher4) == "<Publisher N/A>"
+
+        author1 = Author(3675, "Barack Obama")
+        assert str(author1) == "<Author Barack Obama, author id = 3675>"
+
+        book1 = Book(84765876, "Harry Potter")
+        assert str(book1) == "<Book Harry Potter, book id = 84765876>"

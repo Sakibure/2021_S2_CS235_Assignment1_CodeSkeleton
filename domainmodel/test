@@ -1,11 +1,5 @@
-from domainmodel.author import Author
-from domainmodel.publisher import Publisher
-from domainmodel.book import Book
-import datetime
-
-
 class Review:
-    def __init__(self, book, review_text, rating, timestamp=datetime):
+    def __init__(self, book, review_text, rating):
         self.__book = None
         self.__rating = None
         self.__review_text = "N/A"
@@ -15,7 +9,7 @@ class Review:
             self.__book = book
 
         if type(rating) is int:
-            if 1 <= rating <= 5:
+            if rating >= 1 and rating <= 5:
                 self.__rating = rating
             else:
                 raise ValueError
@@ -48,24 +42,9 @@ class Review:
 
     def __eq__(self, other):
         if type(other) == type(self):
-            if self.__rating == other.rating and self.__review_text == other.review_text and self.__timestamp == other.timestamp and self.__book == other.book:
+            if self.__rating == other.rating and self.__review == other.review_text and self.__timestamp == other.timestamp and self.__book == other.book:
                 return True
             else:
                 return False
         else:
             return False
-
-
-if __name__ == '__main__':
-    book = Book(2675376, "Harry Potter")
-    review_text = "  This book was very enjoyable.   "
-    rating = 4
-    review = Review(book, review_text, rating)
-
-    print(review.book)
-    print("Review: {}".format(review.review_text))
-    print("Rating: {}".format(review.rating))
-
-    publisher = Publisher("DC Comics")
-    review = Review(publisher, "I liked this book", 4)
-    print(review.book)

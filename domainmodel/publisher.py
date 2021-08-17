@@ -2,7 +2,7 @@ class Publisher:
 
     def __init__(self, publisher_name: str):
         self.__name = ''
-        if isinstance(publisher_name, str) is False or len(publisher_name.strip()) == 0:
+        if not isinstance(publisher_name, str) or len(publisher_name.strip()) == 0:
             self.__name = "N/A"
         else:
             self.__name = publisher_name.strip()
@@ -17,7 +17,6 @@ class Publisher:
 
     def __repr__(self):
         # we use access via the property here
-
         return f'<Publisher {self.__name}>'
 
     def __eq__(self, other):

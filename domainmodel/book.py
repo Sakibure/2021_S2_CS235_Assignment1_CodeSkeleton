@@ -4,6 +4,7 @@ from domainmodel.publisher import Publisher
 
 class Book:
     def __init__(self, book_id, title):
+        self.num_pages = None
         self.__publisher = None
         self.__description = None
         self.__authors = []
