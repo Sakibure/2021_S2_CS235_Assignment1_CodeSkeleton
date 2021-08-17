@@ -1,5 +1,3 @@
-import self as self
-
 from domainmodel.author import Author
 from domainmodel.publisher import Publisher
 from domainmodel.book import Book
@@ -10,33 +8,29 @@ import datetime
 
 class User:
     def __init__(self, username, password):
-        self.__username = username
-        self.__password = password
+        self.__username = None
+        self.__password = None
         self.__read_books = []
-        self.__reviews = []
-        self.__pages_read = None
+        self.__reviews = None
+        self.__pages_read = 0
+
+        if isinstance(password, int) and password is not None and len(password) >= 7:
+            self.__password = password
+        else:
+            self.__password = None
+
+        if isinstance(username, str) and len(username.strip()) > 0:
+            self.__username = username.strip().lower()
+        else:
+            self.__username = None
 
     @property
     def user_name(self):
         return self.__username
 
-    @user_name.setter
-    def user_name(self, name):
-        if len(name) == 0:
-            self.__username = None
-        else:
-            self.__username = name.strip().lower()
-
     @property
     def password(self):
         return self.__password
-
-    @password.setter
-    def password(self, password):
-        if len(password) < 7:
-            self.__password = None
-        else:
-            self.__password = password
 
     @property
     def pages_read(self):
@@ -45,15 +39,11 @@ class User:
     @pages_read.setter
     def pages_read(self, pages):
         if isinstance(pages, int) and pages >= 0:
-            self.__pages_read = pages
+            self.__pages_read += pages
 
     @property
     def read_books(self):
         return self.__read_books
-
-    @property
-    def read_a_books(self, book):
-        self.__read_books.append(book)
 
     def __repr__(self):
         return f'<User {self.__username}>'
@@ -69,14 +59,10 @@ class User:
     def __hash__(self):
         return hash(self.__username)
 
-    @property
-    def read_a_book(self):
-        return self.__read_books
-
-    @read_a_book.setter
     def read_a_book(self, book):
         if book not in self.__read_books:
             self.__read_books.append(book)
+            self.__pages_read += book.num_pages
 
     @property
     def add_review(self):
