@@ -4,13 +4,15 @@ import json
 class BooksJSONReader:
 
     def __init__(self, books_file_name: str, authors_file_name: str):
-        self.__books_file_name = None
-        self.__authors_file_name = None
+        self.__books_file_name = ''
+        self.__authors_file_name = ''
         self.__dataset_of_books = []
+
         if isinstance(books_file_name, str) and len(books_file_name.strip()) >= 0:
             self.__books_file_name = books_file_name
         else:
             raise ValueError
+
         if isinstance(authors_file_name, str) and len(authors_file_name.strip()) >= 0:
             self.__authors_file_name = authors_file_name
         else:
@@ -22,13 +24,25 @@ class BooksJSONReader:
 
     def read_json_files(self):
         try:
-            with open(self.__authors_file_name, "r") as authors_file:
-                with open(self.__books_file_name, "r") as book_file:
-                    author_data = json.load(authors_file)
-            book_data = json.load(book_file)
-            return author_data, book_data
+            authors_file = open('book_authors_excerpt.json')
+            book_file = open('comic_books_excerpt.json')
+            author_line = authors_file.readlines()
+            book_line = book_file.readlines()
+            authors_file.close()
+            book_file.close()
+            for i in author_line:
+                author_data = json.loads(i)
+                print(author_data["average_rating"])
+                print(author_data["author_id"])
+                print(author_data["text_reviews_count"])
+                print(author_data["name"])
+                print(author_data["ratings_count"])
 
-        except ValueError:
+            for i in book_line:
+                book_data = json.loads(i)
+                print(book_data[""])
+
+        except FileNotFoundError:
             print()
 
 

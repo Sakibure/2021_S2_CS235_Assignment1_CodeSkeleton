@@ -5,27 +5,22 @@ import datetime
 
 
 class Review:
-    def __init__(self, book, review_text, rating, timestamp=datetime):
+    def __init__(self, book, review_text, rating):
         self.__book = None
         self.__rating = None
         self.__review_text = "N/A"
         self.__timestamp = datetime.datetime.now()
 
-        if type(book) is Book:
+        if isinstance(book, Book):
             self.__book = book
 
-        if type(rating) is int:
-            if 1 <= rating <= 5:
-                self.__rating = rating
-            else:
-                raise ValueError
+        if isinstance(rating, int) and 1 <= rating <= 5:
+            self.__rating = rating
         else:
             raise ValueError
 
-        if type(review_text) is str:
-            rt = review_text.strip()
-            if len(rt) > 0 and rt is not None:
-                self.__review_text = rt
+        if isinstance(review_text, str) and len(review_text.strip()) > 0 and review_text is not None:
+            self.__review_text = review_text.strip()
 
     @property
     def book(self):
@@ -44,11 +39,11 @@ class Review:
         return self.__timestamp
 
     def __repr__(self):
-        return F"<{self.__book}>"
+        return f"<{self.__book}>"
 
     def __eq__(self, other):
         if type(other) == type(self):
-            if self.__rating == other.rating and self.__review_text == other.review_text and self.__timestamp == other.timestamp and self.__book == other.book:
+            if self.__rating == other.__rating and self.__review_text == other.__review_text and self.__timestamp == other.__timestamp and self.__book == other.__book:
                 return True
             else:
                 return False
