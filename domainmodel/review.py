@@ -12,7 +12,7 @@ class Review:
             self.__book = book
 
         if isinstance(review_text, str) and len(review_text.strip()) > 0:
-            self.__review_text = review_text
+            self.__review_text = review_text.strip()
         else:
             self.__review_text = "N/A"
 
@@ -29,12 +29,12 @@ class Review:
 
     @property
     def review_text(self):
-        return self.__review_text.strip()
+        return self.__review_text
 
     @review_text.setter
     def review_text(self, text):
         if isinstance(text, str):
-            self.__review_text = text.strip()
+            self.__review_text = text
 
     @property
     def rating(self):
@@ -51,7 +51,7 @@ class Review:
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
             return False
-        return True
+        return self.__book == other.__book
 
 
 if __name__ == '__main__':
@@ -63,3 +63,7 @@ if __name__ == '__main__':
     print(review.book)
     print("Review: {}".format(review.review_text))
     print("Rating: {}".format(review.rating))
+
+    publisher = Publisher("DC Comics")
+    review = Review(publisher, "I liked this book", 4)
+    print(review.book)
