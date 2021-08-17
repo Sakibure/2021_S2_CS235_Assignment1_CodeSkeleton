@@ -11,7 +11,7 @@ class User:
         self.__username = None
         self.__password = None
         self.__read_books = []
-        self.__reviews = None
+        self.__reviews = []
         self.__pages_read = 0
 
         if isinstance(password, int) and password is not None and len(password) >= 7:
@@ -36,11 +36,6 @@ class User:
     def pages_read(self):
         return self.__pages_read
 
-    @pages_read.setter
-    def pages_read(self, pages):
-        if isinstance(pages, int) and pages >= 0:
-            self.__pages_read += pages
-
     @property
     def read_books(self):
         return self.__read_books
@@ -63,14 +58,12 @@ class User:
         if book not in self.__read_books:
             self.__read_books.append(book)
             self.__pages_read += book.num_pages
+        else:
+            self.__pages_read += 0
 
-    @property
-    def add_review(self):
-        return self.__reviews
-
-    @add_review.setter
     def add_review(self, review):
-        self.__reviews.append(review)
+        if review is not None and len(review.strip()) > 0 and isinstance(review, str):
+            self.__reviews.append(review)
 
 
 if __name__ == '__main__':
