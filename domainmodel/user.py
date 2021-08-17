@@ -1,12 +1,8 @@
 from domainmodel.author import Author
 from domainmodel.publisher import Publisher
 from domainmodel.book import Book
-from domainmodel.author import Author
-from domainmodel.publisher import Publisher
-from domainmodel.book import Book
 from domainmodel.review import Review
-from domainmodel.publisher import Publisher
-from domainmodel.author import Author
+
 import datetime
 
 class User:
