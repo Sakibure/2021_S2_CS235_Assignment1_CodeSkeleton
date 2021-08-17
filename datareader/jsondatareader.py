@@ -26,6 +26,7 @@ class BooksJSONReader:
                 with open(self.__books_file_name, "r") as book_file:
                     author_data = json.load(authors_file)
             book_data = json.load(book_file)
+            return author_data, book_data
 
         except ValueError:
             print()
