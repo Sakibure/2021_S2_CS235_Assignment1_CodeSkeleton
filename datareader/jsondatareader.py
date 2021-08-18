@@ -21,25 +21,22 @@ class BooksJSONReader:
             for line in f.readlines():
                 author_data = json.loads(line)
                 author_dict[int(author_data['author_id'])] = author_data['name']
-        # dict_keys(['isbn', 'text_reviews_count', 'series', 'country_code', 'language_code', 'popular_shelves',
-        # 'asin', 'is_ebook', 'average_rating', 'kindle_asin', 'similar_books', 'description', 'format', 'link',
-        # 'authors', 'publisher', 'num_pages', 'publication_day', 'isbn13', 'publication_month',
-        # 'edition_information', 'publication_year', 'url', 'image_url', 'book_id', 'ratings_count', 'work_id',
-        # 'title', 'title_without_series'])
+
         with open(self.__books_file_name) as f:
             for line in f.readlines():
                 data = json.loads(line)
                 book = Book(int(data['book_id']), data['title'])
                 book.description = data['description']
                 book.publisher = Publisher(data['publisher'])
+
                 if data['is_ebook'] == 'true':
                     book.ebook = True
                 else:
-                    False
+                    book.ebook = False
+
                 if len(data['publication_year']) != 0:
                     book.release_year = int(data['publication_year'])
-                    # book.release_year = int(data['publication_year']) if len(data['publication_year']) != 0 else None
-                # book.release_year = data['publication_year']
+
                 for author_info in data['authors']:
                     author_id = int(author_info['author_id'])
                     author = Author(int(author_id), author_dict[author_id])
