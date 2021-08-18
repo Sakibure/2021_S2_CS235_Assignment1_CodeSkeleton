@@ -1,49 +1,50 @@
 import json
+from domainmodel.author import Author
+from domainmodel.publisher import Publisher
+from domainmodel.book import Book
 
 
 class BooksJSONReader:
-
-    def __init__(self, books_file_name: str, authors_file_name: str):
-        self.__books_file_name = ''
-        self.__authors_file_name = ''
-        self.__dataset_of_books = []
-
-        if isinstance(books_file_name, str) and len(books_file_name.strip()) >= 0:
-            self.__books_file_name = books_file_name
-        else:
-            raise ValueError
-
-        if isinstance(authors_file_name, str) and len(authors_file_name.strip()) >= 0:
-            self.__authors_file_name = authors_file_name
-        else:
-            raise ValueError
+    def __init__(self, books_file_name, authors_file_name):
+        self.__books = list()
+        self.__books_file_name = books_file_name
+        self.__authors_file_name = authors_file_name
 
     @property
     def dataset_of_books(self):
-        return self.__dataset_of_books
+        return self.__books
 
     def read_json_files(self):
-        try:
-            authors_file = open('book_authors_excerpt.json')
-            book_file = open('comic_books_excerpt.json')
-            author_line = authors_file.readlines()
-            book_line = book_file.readlines()
-            authors_file.close()
-            book_file.close()
-            for i in author_line:
-                author_data = json.loads(i)
-                print(author_data["average_rating"])
-                print(author_data["author_id"])
-                print(author_data["text_reviews_count"])
-                print(author_data["name"])
-                print(author_data["ratings_count"])
-
-            for i in book_line:
-                book_data = json.loads(i)
-                print(book_data[""])
-
-        except FileNotFoundError:
-            print()
+        author_dict = dict()
+        # dict_keys(['average_rating', 'author_id', 'text_reviews_count', 'name', 'ratings_count'])
+        with open(self.__authors_file_name) as f:
+            for line in f.readlines():
+                author_data = json.loads(line)
+                author_dict[int(author_data['author_id'])] = author_data['name']
+        # dict_keys(['isbn', 'text_reviews_count', 'series', 'country_code', 'language_code', 'popular_shelves',
+        # 'asin', 'is_ebook', 'average_rating', 'kindle_asin', 'similar_books', 'description', 'format', 'link',
+        # 'authors', 'publisher', 'num_pages', 'publication_day', 'isbn13', 'publication_month',
+        # 'edition_information', 'publication_year', 'url', 'image_url', 'book_id', 'ratings_count', 'work_id',
+        # 'title', 'title_without_series'])
+        with open(self.__books_file_name) as f:
+            for line in f.readlines():
+                data = json.loads(line)
+                book = Book(int(data['book_id']), data['title'])
+                book.description = data['description']
+                book.publisher = Publisher(data['publisher'])
+                if data['is_ebook'] == 'true':
+                    book.ebook = True
+                else:
+                    False
+                if len(data['publication_year']) != 0:
+                    book.release_year = int(data['publication_year'])
+                    # book.release_year = int(data['publication_year']) if len(data['publication_year']) != 0 else None
+                # book.release_year = data['publication_year']
+                for author_info in data['authors']:
+                    author_id = int(author_info['author_id'])
+                    author = Author(int(author_id), author_dict[author_id])
+                    book.add_author(author)
+                self.__books.append(book)
 
 
 if __name__ == '__main__':
