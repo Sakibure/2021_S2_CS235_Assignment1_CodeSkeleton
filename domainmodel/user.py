@@ -44,8 +44,6 @@ class User:
         return f'<User {self.__username}>'
 
     def __eq__(self, other):
-        if not isinstance(other, self.__class__):
-            return False
         return self.__username == other.__username
 
     def __lt__(self, other):
@@ -55,11 +53,12 @@ class User:
         return hash(self.__username)
 
     def read_a_book(self, book):
-        if book not in self.__read_books:
-            self.__read_books.append(book)
-            self.__pages_read += book.num_pages
-        else:
-            self.__pages_read += 0
+        if isinstance(book, Book):
+            if book not in self.__read_books:
+                self.__read_books.append(book)
+                self.__pages_read += book.num_pages
+            else:
+                self.__pages_read += 0
 
     def add_review(self, review):
         if review is not None and len(review.strip()) > 0 and isinstance(review, str):
