@@ -7,50 +7,56 @@ import datetime
 
 
 class User:
-    def __init__(self, username, password):
-        self.__username = None
+
+    def __init__(self, user_name, password):
+        self.__user_name = None
         self.__password = None
         self.__read_books = []
         self.__reviews = []
         self.__pages_read = 0
 
-        if isinstance(password, int) and password is not None and len(password) >= 7:
-            self.__password = password
+        if isinstance(user_name, str):
+            if len(user_name.strip()) > 0:
+                self.__user_name = user_name.strip().lower()
+        else:
+            self.__user_name = None
+        if isinstance(password, str):
+            if len(password.strip()) > 0 and len(password) >= 7:
+                self.__password = password
         else:
             self.__password = None
 
-        if isinstance(username, str) and len(username.strip()) > 0:
-            self.__username = username.strip().lower()
-        else:
-            self.__username = None
-
     @property
     def user_name(self):
-        return self.__username
+        return self.__user_name
 
     @property
     def password(self):
         return self.__password
 
     @property
-    def pages_read(self):
-        return self.__pages_read
-
-    @property
     def read_books(self):
         return self.__read_books
 
+    @property
+    def reviews(self):
+        return self.__reviews
+
+    @property
+    def pages_read(self):
+        return self.__pages_read
+
     def __repr__(self):
-        return f'<User {self.__username}>'
+        return f'<User {self.__user_name}>'
 
     def __eq__(self, other):
-        return self.__username == other.__username
+        return other.__user_name == self.__user_name
 
     def __lt__(self, other):
-        return self.__username < other.__username
+        return self.__user_name < other.__user_name
 
     def __hash__(self):
-        return hash(self.__username)
+        return hash(self.__user_name)
 
     def read_a_book(self, book):
         if isinstance(book, Book):
