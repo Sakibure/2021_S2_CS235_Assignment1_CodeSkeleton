@@ -1,8 +1,3 @@
-import collection as collection
-
-
-from domainmodel.author import Author
-from domainmodel.publisher import Publisher
 from domainmodel.book import Book
 
 
@@ -13,4 +8,5 @@ class BooksInventory:
         self.num_items = num_items
 
     def add_book(self, book, price, nr_books_in_stock):
+        wtf is this
 
