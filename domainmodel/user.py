@@ -57,12 +57,11 @@ class User:
             if book not in self.__read_books:
                 self.__read_books.append(book)
                 self.__pages_read += book.num_pages
-            else:
-                self.__pages_read += 0
 
     def add_review(self, review):
-        if review is not None and len(review.strip()) > 0 and isinstance(review, str):
-            self.__reviews.append(review)
+        if isinstance(review, Review):
+            if review not in self.__reviews:
+                self.__reviews.append(review)
 
 
 if __name__ == '__main__':
